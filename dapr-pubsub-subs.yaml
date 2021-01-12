@@ -1,0 +1,11 @@
+apiVersion: dapr.io/v1alpha1
+kind: Subscription
+metadata:
+  name: agileball-subscription
+  namespace: agileball
+spec:
+  topic: gameEvent
+  route: /game
+  pubsubname: pubsub
+scopes:
+- agileball-game-sub

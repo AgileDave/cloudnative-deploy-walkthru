@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: agileball-game-sub
+  name: agileball-game-sub
+  namespace: agileball
+  # annotations:
+  #   linkerd.io/inject: enabled
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agileball-game-sub
+  template:
+    metadata:
+      labels:
+        app: agileball-game-sub
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: agileball-game-sub
+        #dapr.io/log-level: debug
+        dapr.io/config: "appconfig"
+    spec:
+      containers:
+      - image: agilewaysreg.azurecr.io/agileball/subscriber/game:1.4
+        name: game
+        env:
+        - name: Azure_SignalR_ConnectionString
+          value: "Endpoint=https://nalb.service.signalr.net;AccessKey=dOIPgct2h8Pp9F3p13Rmsfiishhy0dm6Qi1+MS1Vpk4=;Version=1.0;"
+        livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 80
+        readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+        # resources:
+        #   requests:
+        #     cpu: 300m
+        #     memory: 200Mi
+        #   limits:
+        #     cpu: 750m
+        #     memory: 500Mi

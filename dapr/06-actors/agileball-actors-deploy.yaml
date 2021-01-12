@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: agileball-actors
+  name: agileball-actors
+  namespace: agileball
+  # annotations:
+  #   linkerd.io/inject: enabled
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: agileball-actors
+  template:
+    metadata:
+      labels:
+        app: agileball-actors
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: agileball-actors
+        dapr.io/app-port: "80"
+        dapr.io/config: "appconfig"
+    spec:
+      containers:
+      - image: agilewaysreg.azurecr.io/agileball/actors:1.1
+        name: actors
+        livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 80
+        readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+        # resources:
+        #   requests:
+        #     cpu: 500m
+        #     memory: 200Mi
+        #   limits:
+        #     cpu: 1000m
+        #     memory: 500Mi

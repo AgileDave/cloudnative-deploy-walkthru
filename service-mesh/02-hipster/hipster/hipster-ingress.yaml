@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hipster-ingress
+  namespace: hipster
+  annotations:
+    plugins.konghq.com: request-id
+    fluxcd.io/ignore: "false"
+    linkerd.io/inject: enabled
+spec:
+  rules:
+    - host: hipster-east.qualscreen.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontend-external
+              servicePort: 80
+    - host: hipster-west.qualscreen.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontend-external
+              servicePort: 80
