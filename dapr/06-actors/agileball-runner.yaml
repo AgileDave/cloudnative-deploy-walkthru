@@ -20,9 +20,9 @@ spec:
         dapr.io/enabled: "true"
         dapr.io/app-id: agileball-runner
         dapr.io/app-port: "80"
-        dapr.io/config: "appconfig"
+        dapr.io/config: "appinsightsconfig"
     spec:
       containers:
-      - image: agilewaysreg.azurecr.io/agileball/runner:1.1
-        name: runner
-        resources: {}
+        - image: agilewaysreg.azurecr.io/agileball/runner:2.0
+          name: runner
+          resources: {}

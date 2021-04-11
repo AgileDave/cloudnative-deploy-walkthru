@@ -15,13 +15,12 @@ spec:
         app: zipkin
     spec:
       containers:
-      - name: zipkin
-        image: openzipkin/zipkin
-        ports:
-        - containerPort: 9411
+        - name: zipkin
+          image: openzipkin/zipkin:2.23.2
+          ports:
+            - containerPort: 9411
 
 ---
-
 kind: Service
 apiVersion: v1
 metadata:
@@ -32,11 +31,10 @@ spec:
   selector:
     app: zipkin
   ports:
-  - protocol: TCP
-    port: 9411
-    targetPort: 9411
+    - protocol: TCP
+      port: 9411
+      targetPort: 9411
   type: ClusterIP
-
 # ---
 
 # apiVersion: dapr.io/v1alpha1
@@ -51,4 +49,3 @@ spec:
 #     value: "true"
 #   - name: exporterAddress
 #     value: "http://zipkin.default.svc.cluster.local:9411/api/v2/spans"
-    

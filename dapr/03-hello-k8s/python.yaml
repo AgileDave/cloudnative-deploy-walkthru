@@ -19,5 +19,5 @@ spec:
         dapr.io/app-id: "pythonapp"
     spec:
       containers:
-      - name: python
-        image: dapriosamples/hello-k8s-python:edge
+        - name: python
+          image: dapriosamples/hello-k8s-python:edge

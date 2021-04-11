@@ -8,9 +8,9 @@ spec:
   selector:
     app: node
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 3000
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
   type: LoadBalancer
 
 ---
@@ -36,8 +36,8 @@ spec:
         dapr.io/config: "appconfig"
     spec:
       containers:
-      - name: node
-        image: dapriosamples/hello-k8s-node:edge
-        ports:
-        - containerPort: 3000
-        imagePullPolicy: Always
+        - name: node
+          image: dapriosamples/hello-k8s-node:edge
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always

@@ -20,26 +20,26 @@ spec:
         dapr.io/enabled: "true"
         dapr.io/app-id: agileball-game-sub
         #dapr.io/log-level: debug
-        dapr.io/config: "appconfig"
+        dapr.io/config: "appinsightsconfig"
     spec:
       containers:
-      - image: agilewaysreg.azurecr.io/agileball/subscriber/game:1.4
-        name: game
-        env:
-        - name: Azure_SignalR_ConnectionString
-          value: "Endpoint=https://nalb.service.signalr.net;AccessKey=dOIPgct2h8Pp9F3p13Rmsfiishhy0dm6Qi1+MS1Vpk4=;Version=1.0;"
-        livenessProbe:
+        - image: agilewaysreg.azurecr.io/agileball/subscriber/game:2.1
+          name: game
+          env:
+            - name: Azure_SignalR_ConnectionString
+              value: "Endpoint=https://fab-signalr-aks.service.signalr.net;AccessKey=Kw548P2dd21YVcvB574k/CyX6fRiz1z4EY1o3OrVuVw=;Version=1.0;"
+          livenessProbe:
             httpGet:
               path: /health/liveness
               port: 80
-        readinessProbe:
+          readinessProbe:
             httpGet:
               path: /health/ready
               port: 80
-        # resources:
-        #   requests:
-        #     cpu: 300m
-        #     memory: 200Mi
-        #   limits:
-        #     cpu: 750m
-        #     memory: 500Mi
+          # resources:
+          #   requests:
+          #     cpu: 300m
+          #     memory: 200Mi
+          #   limits:
+          #     cpu: 750m
+          #     memory: 500Mi

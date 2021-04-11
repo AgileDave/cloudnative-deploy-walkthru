@@ -10,9 +10,6 @@ data:
     receivers:
       zipkin:
         endpoint: 0.0.0.0:9411
-    processors:
-      queued_retry:
-      batch:
     extensions:
       health_check:
       pprof:
@@ -24,7 +21,7 @@ data:
         loglevel: debug
       azuremonitor:
         endpoint: "https://dc.services.visualstudio.com/v2/track"
-        instrumentation_key: "86ebe6f2-f05b-4121-b4d0-32d8da9bdcba"
+        instrumentation_key: "e7806d7b-8a97-4621-8d32-ba0b12833f5a"
         # maxbatchsize is the maximum number of items that can be
         # queued before calling to the configured endpoint
         maxbatchsize: 100
@@ -37,7 +34,6 @@ data:
         traces:
           receivers: [zipkin]
           exporters: [azuremonitor,logging]
-          processors: [batch, queued_retry]
 ---
 apiVersion: v1
 kind: Service
@@ -75,7 +71,7 @@ spec:
     spec:
       containers:
         - name: otel-collector
-          image: otel/opentelemetry-collector-contrib-dev:latest
+          image: agilewaysreg.azurecr.io/otel/opentelemetry-collector-contrib-dev:20210325
           command:
             - "/otelcontribcol"
             - "--config=/conf/otel-collector-config.yaml"
